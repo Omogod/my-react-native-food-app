@@ -7,21 +7,23 @@ import {
   ArrowDownCircleIcon,
   AdjustmentsVerticalIcon
 } from "react-native-heroicons/outline";
+import { ScrollView } from "react-native";
+import Categories from "../components/categories";
+import FeaturedRow from "../components/FeaturedRow";
 
 const HomeScreen = () => {
   const navigation = useNavigation();
 
   useLayoutEffect(() => {
     navigation.setOptions({
-      headerShown: true,
+      headerShown: false,
     });
   }, []);
 
   return (
     <SafeAreaView className="bg-white pt-5">
-      <Text className="text-red-800">
         {/* header */}
-        <View className="flex-row pb-3 items-center mx-4 space-x-2 px-4 " >
+        <View className="flex-row pb-2 pt-8 items-center mx-4 space-x-2" >
           <Image
             source={{
               uri: "https://links.papareact.com/wru",
@@ -43,7 +45,7 @@ const HomeScreen = () => {
         </View>
 
         {/* Search */}
-            <View className="flex-row items-center space-x-2 pb-2 mx-4 px-4">
+            <View className="flex-row items-center space-x-2 pb-2 mx-4">
               <View className="flex-1 flex-row space-x-2 bg-gray-200 p-3" >
               <ArrowDownCircleIcon color="grey" size={30}/>
               <TextInput
@@ -55,7 +57,31 @@ const HomeScreen = () => {
               <AdjustmentsVerticalIcon color="#00CCBB" />
             </View>
 
-      </Text>
+
+        {/* body */}
+
+        <ScrollView className="bg-gray-100"
+        contentContainerStyle={{
+          paddingBottom: 100,
+        }}
+        >
+            {/* categories */}
+            <Categories />
+
+            {/* featured rows */}
+            <FeaturedRow
+            title="featured"
+            description="Paid placement for our partners"
+            />
+            <FeaturedRow
+            title="featured"
+            description="Everyone's been enjoying this juicy discount"
+            />
+            <FeaturedRow
+            title="featured"
+            description="Why not support your local restaurant tonight"
+            />
+        </ScrollView>
     </SafeAreaView>
   );
 };
