@@ -1,4 +1,4 @@
-import React, { Component, useLayoutEffect } from "react";
+import React, { Component, useLayoutEffect, useState, useEffect } from "react";
 import { Text, View, SafeAreaView, Image, TextInput } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import {
@@ -10,9 +10,11 @@ import {
 import { ScrollView } from "react-native";
 import Categories from "../components/categories";
 import FeaturedRow from "../components/FeaturedRow";
+import sanityClient from "../sanity";
 
 const HomeScreen = () => {
   const navigation = useNavigation();
+  const [featuredCategories, setFeaturedCategories] = useState([])
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -20,8 +22,23 @@ const HomeScreen = () => {
     });
   }, []);
 
+  useEffect(() => {
+  sanityClient.fetch(
+    `*[_type == "featured"] {
+      ...,
+      restaurants[]->{
+        ...,
+        dishes[] ->
+      }
+    }`).then((data) => {
+      setFeaturedCategories(data)
+    })
+
+  }, []);
+
   return (
     <SafeAreaView className="bg-white pt-5">
+
         {/* header */}
         <View className="flex-row pb-2 pt-8 items-center mx-4 space-x-2" >
           <Image
@@ -59,7 +76,6 @@ const HomeScreen = () => {
 
 
         {/* body */}
-
         <ScrollView className="bg-gray-100"
         contentContainerStyle={{
           paddingBottom: 100,
@@ -68,17 +84,33 @@ const HomeScreen = () => {
             {/* categories */}
             <Categories />
 
-            {/* featured rows */}
+            {/* featured */}
+
+            {featuredCategories?.map((category) => (
+                          <FeaturedRow
+                          key={category._id}
+                          id={category._id}
+                          title={category.title}
+                          description={category.short_description}
+                          />
+            ))}
             <FeaturedRow
-            title="featured"
+            id="123"
+            title="Featured"
             description="Paid placement for our partners"
             />
+
+            {/* tasty discount */}
             <FeaturedRow
-            title="featured"
+            id="1234"
+            title="Tasty Discounts"
             description="Everyone's been enjoying this juicy discount"
             />
+
+            {/* offers near you */}
             <FeaturedRow
-            title="featured"
+            id="12345"
+            title="Offers near you!"
             description="Why not support your local restaurant tonight"
             />
         </ScrollView>
