@@ -90,7 +90,7 @@ const BasketScreen = () => {
                 </Text>
             </View>
             <View className="flex-row justify-between">
-                <Text className="text-gray-400">Subtotal</Text>
+                <Text className="text-gray-400">Order Fee</Text>
                 <Text className="text-gray-400">
                     <Currency quantity={1000} currency="NGN" />
                 </Text>
