@@ -1,13 +1,14 @@
 {
   "expo": {
-    "name": "my-app",
-    "slug": "my-app",
+    "name": "OmoGod Foods",
+    "slug": "Omogod-Foods",
+    "description": "OmoGod Foods is a food delivery app that allows you to order food from your favorite restaurants and have it delivered to your doorstep.",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/omogod-foods.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/omogod-foods.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },

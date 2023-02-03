@@ -42,7 +42,7 @@ const DeliveryScreen = () => {
             </View>
         </SafeAreaView>
 
-        {/* <MapView
+        <MapView
         initialRegion={{
             latitiude: restaurant.lat,
             longitude: restaurant.long,
@@ -63,7 +63,7 @@ const DeliveryScreen = () => {
         identified = "origin"
         pinColor = "#00CCBB"
         />
-        </MapView> */}
+        </MapView>
 
         <SafeAreaView className="bg-white flex-row items-center space-x-5 h-28">
             <Image 
