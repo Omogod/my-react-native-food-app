@@ -1,5 +1,5 @@
 import { View, Text, ScrollView, Image } from "react-native";
-import React, { useLayoutEffect } from "react";
+import React, { useEffect, useLayoutEffect } from "react";
 import { useRoute } from "@react-navigation/native";
 import { useNavigation } from "@react-navigation/native";
 import { urlFor } from "../sanity";
@@ -13,9 +13,13 @@ import {
 
 } from "react-native-heroicons/solid";
 import DishRow from "../components/DishRow";
+import BasketIcon from "../components/BasketIcon";
+import { useDispatch } from "react-redux";
+import { setRestaurant } from "../features/restaurantSlice";
 
 const RestaurantScreen = () => {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
 
   const {
     params: {
@@ -32,6 +36,22 @@ const RestaurantScreen = () => {
     },
   } = useRoute();
 
+  useEffect(() => {
+  dispatch(
+    setRestaurant({
+    id,
+    imgUrl,
+    title,
+    rating,
+    genre,
+    address,
+    short_description,
+    dishes,
+    long,
+    lat,
+  }))
+  }, [dispatch])
+
   useLayoutEffect(() => {
     navigation.setOptions({
       headerShown: false,
@@ -39,6 +59,8 @@ const RestaurantScreen = () => {
   }, []);
 
   return (
+    <>
+    <BasketIcon />
     <ScrollView>
       <View className="relative">
         <Image
@@ -92,7 +114,7 @@ const RestaurantScreen = () => {
 
       </View>
 
-      <View>
+      <View className="pb-36">
         <Text className="px-4 pt-6 mb-3 font-bold text-xl">
             Menu
         </Text>
@@ -102,7 +124,7 @@ const RestaurantScreen = () => {
             key={dish._id}
             id={dish._id}
             name={dish.name}
-            description={dish.description}
+            description={dish.short_description}
             price={dish.price}
             image={dish.image}
             />
@@ -110,6 +132,7 @@ const RestaurantScreen = () => {
       </View>
 
     </ScrollView>
+    </>
   );
 };
 
